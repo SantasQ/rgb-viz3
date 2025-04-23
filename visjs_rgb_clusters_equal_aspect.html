@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>RGB 3D Clusters (vis.js) - Equal Aspect</title>
+  <script type="text/javascript" src="https://unpkg.com/vis-graph3d@latest/dist/vis-graph3d.min.js"></script>
+  <style>
+    body { font-family: sans-serif; margin: 0; }
+    #visualization {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+<div id="visualization"></div>
+<script>
+  const dataDict = {"Girl with a Pearl Earring": [{"x": 16, "y": 11, "z": 17, "style": "#100b11", "value": 6778}, {"x": 63, "y": 76, "z": 107, "style": "#3f4c6b", "value": 108}, {"x": 45, "y": 34, "z": 31, "style": "#2d221f", "value": 746}, {"x": 88, "y": 65, "z": 48, "style": "#584130", "value": 656}, {"x": 153, "y": 126, "z": 93, "style": "#997e5d", "value": 279}, {"x": 130, "y": 94, "z": 62, "style": "#825e3e", "value": 550}, {"x": 114, "y": 131, "z": 178, "style": "#7283b2", "value": 141}, {"x": 39, "y": 45, "z": 68, "style": "#272d44", "value": 118}, {"x": 193, "y": 159, "z": 116, "style": "#c19f74", "value": 238}, {"x": 227, "y": 197, "z": 169, "style": "#e3c5a9", "value": 163}, {"x": 71, "y": 90, "z": 152, "style": "#475a98", "value": 159}, {"x": 245, "y": 242, "z": 237, "style": "#f5f2ed", "value": 64}], "Liberty Leading the People": [{"x": 140, "y": 133, "z": 130, "style": "#8c8582", "value": 907}, {"x": 61, "y": 50, "z": 42, "style": "#3d322a", "value": 1776}, {"x": 85, "y": 75, "z": 66, "style": "#554b42", "value": 1297}, {"x": 156, "y": 159, "z": 164, "style": "#9c9fa4", "value": 852}, {"x": 221, "y": 225, "z": 226, "style": "#dde1e2", "value": 565}, {"x": 110, "y": 102, "z": 96, "style": "#6e6660", "value": 929}, {"x": 186, "y": 189, "z": 193, "style": "#babdc1", "value": 582}, {"x": 35, "y": 30, "z": 27, "style": "#231e1b", "value": 2049}, {"x": 46, "y": 61, "z": 88, "style": "#2e3d58", "value": 285}, {"x": 188, "y": 89, "z": 67, "style": "#bc5943", "value": 162}, {"x": 97, "y": 131, "z": 178, "style": "#6183b2", "value": 321}, {"x": 78, "y": 98, "z": 127, "style": "#4e627f", "value": 275}], "Mona Lisa": [{"x": 93, "y": 91, "z": 71, "style": "#5d5b47", "value": 609}, {"x": 33, "y": 23, "z": 16, "style": "#211710", "value": 2362}, {"x": 57, "y": 46, "z": 34, "style": "#392e22", "value": 1279}, {"x": 112, "y": 76, "z": 43, "style": "#704c2b", "value": 474}, {"x": 47, "y": 34, "z": 23, "style": "#2f2217", "value": 1644}, {"x": 84, "y": 55, "z": 31, "style": "#54371f", "value": 807}, {"x": 151, "y": 104, "z": 59, "style": "#97683b", "value": 300}, {"x": 117, "y": 114, "z": 89, "style": "#757259", "value": 898}, {"x": 186, "y": 135, "z": 80, "style": "#ba8750", "value": 185}, {"x": 139, "y": 133, "z": 100, "style": "#8b8564", "value": 445}, {"x": 210, "y": 161, "z": 100, "style": "#d2a164", "value": 214}, {"x": 70, "y": 66, "z": 49, "style": "#464231", "value": 783}], "The Birth of Venus": [{"x": 171, "y": 129, "z": 74, "style": "#ab814a", "value": 834}, {"x": 218, "y": 188, "z": 135, "style": "#dabc87", "value": 650}, {"x": 69, "y": 61, "z": 40, "style": "#453d28", "value": 887}, {"x": 212, "y": 205, "z": 175, "style": "#d4cdaf", "value": 1399}, {"x": 182, "y": 182, "z": 153, "style": "#b6b699", "value": 1010}, {"x": 194, "y": 162, "z": 105, "style": "#c2a269", "value": 861}, {"x": 137, "y": 95, "z": 52, "style": "#895f34", "value": 670}, {"x": 96, "y": 85, "z": 59, "style": "#60553b", "value": 833}, {"x": 231, "y": 224, "z": 200, "style": "#e7e0c8", "value": 768}, {"x": 41, "y": 38, "z": 26, "style": "#29261a", "value": 845}, {"x": 123, "y": 118, "z": 88, "style": "#7b7658", "value": 556}, {"x": 147, "y": 149, "z": 121, "style": "#939579", "value": 687}], "The Gleaners": [{"x": 155, "y": 141, "z": 104, "style": "#9b8d68", "value": 987}, {"x": 24, "y": 17, "z": 27, "style": "#18111b", "value": 722}, {"x": 42, "y": 34, "z": 35, "style": "#2a2223", "value": 1030}, {"x": 60, "y": 49, "z": 42, "style": "#3c312a", "value": 993}, {"x": 141, "y": 128, "z": 88, "style": "#8d8058", "value": 756}, {"x": 82, "y": 69, "z": 53, "style": "#524535", "value": 780}, {"x": 194, "y": 181, "z": 164, "style": "#c2b5a4", "value": 1410}, {"x": 170, "y": 155, "z": 120, "style": "#aa9b78", "value": 498}, {"x": 125, "y": 109, "z": 74, "style": "#7d6d4a", "value": 597}, {"x": 213, "y": 197, "z": 179, "style": "#d5c5b3", "value": 1143}, {"x": 104, "y": 88, "z": 62, "style": "#68583e", "value": 600}, {"x": 178, "y": 168, "z": 146, "style": "#b2a892", "value": 484}], "The Last Supper": [{"x": 87, "y": 70, "z": 48, "style": "#574630", "value": 1315}, {"x": 136, "y": 133, "z": 123, "style": "#88857b", "value": 507}, {"x": 174, "y": 160, "z": 134, "style": "#aea086", "value": 1007}, {"x": 47, "y": 29, "z": 14, "style": "#2f1d0e", "value": 790}, {"x": 162, "y": 137, "z": 108, "style": "#a2896c", "value": 725}, {"x": 110, "y": 101, "z": 87, "style": "#6e6557", "value": 836}, {"x": 70, "y": 52, "z": 31, "style": "#46341f", "value": 1618}, {"x": 207, "y": 200, "z": 182, "style": "#cfc8b6", "value": 460}, {"x": 108, "y": 87, "z": 61, "style": "#6c573d", "value": 1156}, {"x": 139, "y": 114, "z": 83, "style": "#8b7253", "value": 849}, {"x": 230, "y": 228, "z": 215, "style": "#e6e4d7", "value": 163}, {"x": 191, "y": 181, "z": 161, "style": "#bfb5a1", "value": 574}], "The Scream": [{"x": 197, "y": 68, "z": 14, "style": "#c5440e", "value": 658}, {"x": 95, "y": 79, "z": 53, "style": "#5f4f35", "value": 1104}, {"x": 37, "y": 46, "z": 37, "style": "#252e25", "value": 1245}, {"x": 129, "y": 101, "z": 67, "style": "#816543", "value": 889}, {"x": 202, "y": 121, "z": 61, "style": "#ca793d", "value": 698}, {"x": 82, "y": 90, "z": 79, "style": "#525a4f", "value": 688}, {"x": 56, "y": 64, "z": 54, "style": "#384036", "value": 1263}, {"x": 195, "y": 94, "z": 39, "style": "#c35e27", "value": 904}, {"x": 16, "y": 25, "z": 18, "style": "#101912", "value": 950}, {"x": 193, "y": 141, "z": 84, "style": "#c18d54", "value": 626}, {"x": 136, "y": 123, "z": 92, "style": "#887b5c", "value": 692}, {"x": 198, "y": 164, "z": 109, "style": "#c6a46d", "value": 283}], "The Starry Night": [{"x": 56, "y": 77, "z": 131, "style": "#384d83", "value": 1117}, {"x": 43, "y": 58, "z": 102, "style": "#2b3a66", "value": 832}, {"x": 29, "y": 33, "z": 33, "style": "#1d2121", "value": 1568}, {"x": 76, "y": 101, "z": 143, "style": "#4c658f", "value": 1355}, {"x": 158, "y": 172, "z": 159, "style": "#9eac9f", "value": 491}, {"x": 122, "y": 144, "z": 159, "style": "#7a909f", "value": 846}, {"x": 74, "y": 88, "z": 97, "style": "#4a5861", "value": 566}, {"x": 172, "y": 176, "z": 125, "style": "#acb07d", "value": 303}, {"x": 44, "y": 52, "z": 63, "style": "#2c343f", "value": 1146}, {"x": 95, "y": 121, "z": 155, "style": "#5f799b", "value": 1211}, {"x": 117, "y": 132, "z": 120, "style": "#758478", "value": 463}, {"x": 173, "y": 158, "z": 54, "style": "#ad9e36", "value": 102}], "Thirty-six Views of Mount Fuji": [{"x": 237, "y": 233, "z": 215, "style": "#ede9d7", "value": 1588}, {"x": 140, "y": 167, "z": 175, "style": "#8ca7af", "value": 875}, {"x": 152, "y": 150, "z": 141, "style": "#98968d", "value": 822}, {"x": 227, "y": 200, "z": 166, "style": "#e3c8a6", "value": 2152}, {"x": 192, "y": 199, "z": 193, "style": "#c0c7c1", "value": 851}, {"x": 53, "y": 69, "z": 102, "style": "#354566", "value": 670}, {"x": 19, "y": 29, "z": 72, "style": "#131d48", "value": 747}, {"x": 55, "y": 57, "z": 54, "style": "#373936", "value": 273}, {"x": 98, "y": 97, "z": 90, "style": "#62615a", "value": 302}, {"x": 181, "y": 174, "z": 158, "style": "#b5ae9e", "value": 780}, {"x": 97, "y": 118, "z": 137, "style": "#617689", "value": 544}, {"x": 135, "y": 130, "z": 114, "style": "#878272", "value": 396}], "Woman with a Parasol": [{"x": 131, "y": 136, "z": 138, "style": "#83888a", "value": 808}, {"x": 110, "y": 110, "z": 69, "style": "#6e6e45", "value": 650}, {"x": 190, "y": 187, "z": 178, "style": "#bebbb2", "value": 737}, {"x": 96, "y": 103, "z": 101, "style": "#606765", "value": 552}, {"x": 117, "y": 143, "z": 168, "style": "#758fa8", "value": 973}, {"x": 128, "y": 128, "z": 103, "style": "#808067", "value": 421}, {"x": 76, "y": 85, "z": 64, "style": "#4c5540", "value": 1131}, {"x": 161, "y": 161, "z": 157, "style": "#a1a19d", "value": 1099}, {"x": 97, "y": 118, "z": 139, "style": "#61768b", "value": 1084}, {"x": 95, "y": 99, "z": 46, "style": "#5f632e", "value": 577}, {"x": 145, "y": 166, "z": 182, "style": "#91a6b6", "value": 1208}, {"x": 52, "y": 65, "z": 49, "style": "#344131", "value": 760}]};
+  const params = new URLSearchParams(window.location.search);
+  const imageName = params.get("img");
+
+  if (!dataDict[imageName]) {
+    document.body.innerHTML = '<p style="padding:1em;">指定された画像データが見つかりません: ' + imageName + '</p>';
+  } else {
+    const container = document.getElementById('visualization');
+    const data = new vis.DataSet(dataDict[imageName]);
+
+    const options = {
+      width:  '100%',
+      height: '100%',
+      style: 'dot-color',
+      showPerspective: true,
+      showGrid: true,
+      showXAxis: true,
+      showYAxis: true,
+      showZAxis: true,
+      axisColor: '#000',
+      xLabel: 'Red',
+      yLabel: 'Green',
+      zLabel: 'Blue',
+      xMin: 0,
+      xMax: 255,
+      yMin: 0,
+      yMax: 255,
+      zMin: 0,
+      zMax: 255,
+      keepAspectRatio: false,  // ← 縦横比を固定せず、全方向均等に
+      cameraPosition: {
+        horizontal: 1.0,
+        vertical: 0.7,
+        distance: 1.8
+      }
+    };
+
+    new vis.Graph3d(container, data, options);
+  }
+</script>
+</body>
+</html>
